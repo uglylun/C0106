@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="~/Default.aspx" title="基于数据的优化"  description="">
+        <siteMapNode url="" title="均匀实验设计"  description="均匀实验设计方案" >
+         <siteMapNode url="~/Computer.aspx" title="等水平"  description="等水平均匀实验设计方案" />
+           <siteMapNode url="~/Math.aspx" title="混合水平"  description="混合水平均匀实验设计方案" />
+         </siteMapNode>
+          <siteMapNode url="" title="智能可视化优化"  description="智能可视化优化技术" >
+          <siteMapNode url="~/Default3.aspx" title="单目标"  description="单目标智能可视化" />
+          <siteMapNode url="~/Default2.aspx" title="多目标"  description="多目标智能可视化" />
+        </siteMapNode>
+    </siteMapNode>
+</siteMap>

@@ -1,0 +1,84 @@
+﻿<%@ Page Language="C#" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+</script>
+<script type="text/javascript">
+    var $ = function () { return document.getElementById(arguments[0]); };
+
+    var check = function (e) {
+        return e.keyCode <= 57 && e.keyCode >= 48
+    }
+
+    $("btnAddInfo").onclick = function () {
+        var tb = $("tab1"); //to mqtheone:这里你可用服务器那个table的id，或者查找页面的第一个table  
+        var row = tb.insertRow(tb.rows.length);
+        for (var i = 0; i < 2; i++) {
+            var td = row.insertCell(i);
+            td.innerHTML = "<input type='text'/>";
+        }
+        row.insertCell(row.cells.length).innerHTML = "<input type='text' class='dis-ime' onkeypress='return check(event)'/>"; //样式表禁用输入法，再过滤再数字字符,还没有禁用粘贴，  
+        row.insertCell(row.cells.length).innerHTML = "<input type='button' onclick='return remove(this)' value='移除'/>";
+    }
+    var remove = function (obj) {
+        var tr = obj.parentNode.parentNode;
+        tr.parentNode.removeChild(tr);
+    }
+
+    var initData = function () {
+        var tb = $("tab1");
+        var data = [];
+        for (var i = 1; i < tb.rows.length; i++) {
+            if (tb.rows[i].cells[0].firstChild.value.length > 0 && tb.rows[i].cells[1].firstChild.value.length > 0) {//将两个文本框里值不为空的项添加到数组,假设只有前两列的数据不能为空  
+                data.push(tb.rows[i].cells[0].firstChild.value);
+                data.push(tb.rows[i].cells[1].firstChild.value);
+                data.push(tb.rows[i].cells[2].firstChild.value);
+            } //else {这里可以给个提示说数据没填完整，是否提交，否则return false}  
+        }
+        $("HiddenField1").value = data.join("`"); //使用这个比较不常用 的字符将数组拼接成字符串  
+        return true;
+    };
+    //这里可以增加一个方法判断 hidden是否为空，如果不为空，获取数据遍历，添加到表格中  
+    function btnAddInfo_onclick() {
+
+    }
+
+
+</script>  
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">  
+    <title>asp.net获取前台js表格的数据</title>    
+</head>
+<body>  
+    <form id="form1" runat="server">  
+    <h3>使用客户端添加表格的保存</h3>  
+    <p>  
+        主是就是在提交到服务器之前，处理好表格里的信息，然后赋值给hidden<br />  
+        to mqtheone:这里我设置最后一列只能输入数字了，你可以参考一下  
+    </p>  
+    <div>  
+          
+        <table id="tab1">  
+        <tr>  
+            <th>名称</th>  
+            <th>内容</th>  
+            <th>值</th>  
+            <th></th>  
+        </tr>  
+        <tr>  
+            <td><input type="text" /></td>  
+            <td><input type="text" /></td>  
+            <td><input type="text"  onkeypress="return check(event)"/></td>  
+        </tr>  
+        </table>  
+        <input type="button" style="margin-left:400px"  value="添加信息" id="btnAddInfo"  /><br />  
+<%--        <asp:Button ID="Button1" runat="server" Text="提交" OnClientClick="initData();"   
+                onClick="Button1_Click" /> --%> 
+        <asp:HiddenField ID="HiddenField1"  
+            runat="server" />  
+      
+    </div>  
+    </form>  
+</body>
+</html>

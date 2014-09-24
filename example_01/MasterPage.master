@@ -1,0 +1,54 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>过程系统工程</title>
+    <style type="text/css">
+        .style1
+        {
+            height: 100px;
+            width: 200px;
+        }
+        .style2
+        {
+            height: 600px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    &nbsp;<table ID="TABLE1" style="width:1000px;height:856px; margin-right: 0px;" 
+            runat="server" >
+    <tr> 
+    <td runat="server" class="style1" >
+    </td>
+    <td style="width:630px;height:100px" runat="server" >
+    </td> 
+    </tr>
+    <tr>
+    <td id="Td1" runat="server" align="left" valign="top" class="style2" >
+        <asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1" 
+            ShowLines="True" style="margin-top: 0px" Width="159px" Height="100px">
+        </asp:TreeView>
+        <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+    </td>
+    <td style="width:630px;height:600px" runat="server" char="jkhk" 
+            valign="top" >
+    <img src="images/322938.jpg" alt="模拟" 
+            style="clip:rect(0px auto auto auto);
+     display:block;visibility:visible;width:495px; position:relative;top:0px; height:351px; left: 0px; margin-top: 0px;" 
+            align="bottom"  />
+            &nbsp;&nbsp;
+    <asp:ContentPlaceHolder ID ="ContentPlaceHolder1" runat="server" >
+    </asp:ContentPlaceHolder>
+    </td>
+    </tr>
+    </table> 
+    </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="WebApp._Default" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Extract</title>
+    <script language="javascript" type="text/javascript">
+        function addRow() {
+            var tbl = document.getElementById("tbl");
+            var rows = tbl.rows.length;
+            var tr;
+            var td;
+            for (var i = 0; i < 4; i++) {
+                td = tr.insertCell(i);
+                if (i == 3)
+                    td.innerHTML = "<a id='a" + rows + "' href='#' onclick='delRow(this)'>删除</a>";
+                else
+                    td.innerHTML = "<input id='txt" + rows + i + "' type='text' />";
+            }
+        }
+        function delRow(obj) {
+            var tbl = document.getElementById("tbl");
+            tbl.deleteRow(obj.parentNode.parentNode.rowIndex);
+        }
+        function getPageData() {
+            var companyName = document.getElementById("txtCompanyName");
+            var companySize = document.getElementById("txtCompanySize");
+            var companyType = document.getElementById("ddlCompanyType");
+
+            var tbl = document.getElementById("tbl");
+            var txt;
+            var datas = new Array(tbl.rows.length - 1);
+            for (var i = 1; i < tbl.rows.length; i++) {
+                txt = tbl.rows[i].getElementsByTagName("input");
+                datas[i - 1] = txt[0].value + "," + txt[1].value + "," + txt[2].value;
+            }
+            PageMethods.GetData(companyName.value, companySize.value, companyType.options[companyType.selectedIndex].value, datas, showResult);
+        }
+        function showResult(msg) {
+            alert(msg);
+        } 
+    </script>
+    <style type="text/css">
+        .style1
+        {
+            height: 23px;
+        }
+        .style2
+        {
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
+    </asp:ScriptManager>
+    <table>
+        <tr>
+            <td>
+                公司名称：
+            </td>
+            <td>
+                <asp:TextBox ID="txtCompanyName" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                公司规模：
+            </td>
+            <td>
+                <asp:TextBox ID="txtCompanySize" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                公司类型：
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlCompanyType" runat="server">
+                </asp:DropDownList>
+            </td>
+        </tr>
+    </table>
+    <input id="btnAddRow" type="button" value="新增一行" onclick="addRow();" />
+    <table id="tbl">
+        <tr>
+            <td class="style2">
+                部门
+            </td>
+            <td class="style2">
+                电话
+            </td>
+            <td class="style2">
+                经理
+            </td>
+            <td class="style2">
+            </td>
+        </tr>
+        <tr>
+            <td class="style1">
+                <input id="txt10" type="text" />
+            </td>
+            <td class="style1">
+                <input id="txt11" type="text" />
+            </td>
+            <td class="style1">
+                <input id="txt12" type="text" />
+            </td>
+            <td class="style1">
+                <a id="a1" href='#' onclick="delRow(this)">删除</a>
+            </td>
+        </tr>
+    </table>
+    <input id="btnOK" type="button" value="确定" onclick="getPageData();" />
+    <br />
+    </form>
+</body>
+</html>

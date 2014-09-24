@@ -1,0 +1,39 @@
+﻿body
+{
+}
+li
+{
+    
+}
+div
+{
+    margin: 0px;
+    height:600px;
+    padding: 10px;
+    border: 1px;
+    float: left;
+}
+.divmain
+{
+    vertical-align:middle;
+    width:1000px;
+}
+.divright
+{
+    margin: 0px;
+    width: 100px;
+    height: 600px;
+    padding: 10px;
+    border: 1px;
+    float: left;
+}
+.divcenter
+{
+    margin: 0px;
+    width: 400px;
+    height: 600px;
+    padding: 10px;
+    border: 1px;
+    float: left;
+}
+

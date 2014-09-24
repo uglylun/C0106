@@ -1,0 +1,107 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text;
+using System.Web.UI.HtmlControls;
+using System.Diagnostics;
+namespace WebApp
+{
+    public partial class _Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                //绑定公司类型 
+
+                          ddlCompanyType.Items.Add(new ListItem("国营企业", "1"));
+                ddlCompanyType.Items.Add(new ListItem("民营企业", "2"));
+                ddlCompanyType.Items.Add(new ListItem("外资企业", "3"));
+                ddlCompanyType.SelectedValue = "1";  }
+        }
+        [System.Web.Services.WebMethod]
+        public static string GetData(string companyName, string companySize, string companyType, string[] depts)
+        {
+            StringBuilder buider = new StringBuilder();//显示一下提取到的数据 
+            buider.AppendLine(string.Format("公司名称：{0}", companyName));
+            buider.AppendLine(string.Format("公司规模：{0}", companySize));
+            buider.AppendLine(string.Format("公司性质：{0}", companyType));
+            CompanyInfo info = new CompanyInfo(companyName, companySize, companyType);//将数据插入到公司实体对象中 
+            List<DepartmentInfo> infos = new List<DepartmentInfo>();
+            DepartmentInfo info1 = null;
+            string[] temp;
+            for (int i = 0; i < depts.Length; i++)
+            {
+                temp = depts[i].Split(new char[] { ',' });
+                buider.AppendLine(string.Format("部门：{0}，经理：{1}，电话：{2}", temp[0], temp[1], temp[2]));
+                info1 = new DepartmentInfo();
+                info1.DeptName = temp[0];
+                info1.Mamanger = temp[1];
+                info1.Phone = temp[2];
+                infos.Add(info1);//将数据插入到部门实体对象List集合中 
+            }
+            //数据提取出来插入到数据库就是很简单的事情了。 
+
+            return buider.ToString();
+        }
+    }
+    public class CompanyInfo
+    {
+        private string _companyName;
+        private string _companySize;
+        private string _companyType;
+        public string CompanyType
+        {
+            get { return _companyType; }
+            set { _companyType = value; }
+        }
+        public string CompanyName
+        {
+            get { return _companyName; }
+            set { _companyName = value; }   
+        }
+        public string CompanySize
+        {
+            get { return _companySize; }
+            set { _companySize = value; }
+        }
+        public CompanyInfo()
+        { }
+        public CompanyInfo(string companyName, string companySize, string companyType)
+        {
+            this._companyName = companyName;
+            this._companySize = companySize;
+            this._companyType = companyType;
+        }
+    }
+    public class DepartmentInfo
+    {
+        private string _deptName;
+        private string _mamanger;
+        private string _phone;
+        public string Phone
+        {
+            get { return _phone; }
+            set { _phone = value; }
+        }
+        public string Mamanger
+        {
+            get { return _mamanger; }
+            set { _mamanger = value; }
+        }
+        public string DeptName
+        {
+            get { return _deptName; }
+            set { _deptName = value; }
+        }
+        public DepartmentInfo()
+        {
+        }
+    }
+}
